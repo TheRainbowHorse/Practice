@@ -8,15 +8,15 @@
 </head>
 <body>
     <div id="app">
-        {{aSquare}}
+        {{aSquare(a)}}
     </div>
     <script>
         var vm = new Vue({
             el: "#app",
             data: { a: 7 },
-            computed: {
-                aSquare: function () {
-                    return this.a*this.a;
+            methods: {
+                aSquare: function (a) {
+                    return a*a;
                 }
             }
         })
