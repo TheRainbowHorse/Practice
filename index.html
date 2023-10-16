@@ -8,16 +8,15 @@
 </head>
 <body>
     <div id="app">
-        {{aSquare(a)}}
+        <img :src="imgsrc">
+        <a :href="hreflink">Google.com</a>
     </div>
     <script>
         var vm = new Vue({
             el: "#app",
-            data: { a: 7 },
-            methods: {
-                aSquare: function (a) {
-                    return a*a;
-                }
+            data: {
+                imgsrc : "images/img.jpg",
+                hreflink : "https://www.google.com"
             }
         })
     </script>
