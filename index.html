@@ -23,7 +23,14 @@
         <input type="radio" name="author" v-model="isAuthor" value="">Немає автора
 
         <div v-for="qt in filteredQuotes">
-            <h3 v-bind:class="qt.quote.length > 40 ? 'red' : 'black'">{{qt.quote}},</h3>
+            <h3 :class="qt.quote.length > 40 ? 'red' : 'black'">{{qt.quote}},</h3>
+            <h5>{{qt.source}}</h5>
+        </div>
+
+        <button @click="sortBySource()">Сортувати</button>
+
+        <div v-for="qt in sortedQuotes">
+            <h3>{{qt.quote}},</h3>
             <h5>{{qt.source}}</h5>
         </div>
     </div>
@@ -47,7 +54,7 @@
             },
             {
                 "quote": "This is just a Quote5",
-                "source": ""
+                "source": "Christopher Robin"
             },
             ]
 
@@ -56,12 +63,18 @@
             data: {
                 allQuotes: quotes,
                 isAuthor: "",
+                sortedQuotes: quotes,
             },
             computed: {
                 filteredQuotes: function () {
                     return this.allQuotes.filter(element => {
                         return Boolean(this.isAuthor) == Boolean(element.source);
                     })
+                }
+            },
+            methods: {
+                sortBySource () {
+                    this.sortedQuotes = this.allQuotes.sort((a, b) => (a.source > b.source) ? 1 : -1);
                 }
             }
         })
