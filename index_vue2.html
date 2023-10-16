@@ -14,7 +14,7 @@
         }
     </style>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
     <div id="app">
@@ -27,7 +27,6 @@
             <h5>{{qt.source}}</h5>
         </div>
 
-        <br>
         <button @click="sortBySource()">Сортувати</button>
 
         <div v-for="qt in sortedQuotes">
@@ -36,7 +35,7 @@
         </div>
     </div>
     <script>
-        var quotesArray = [
+        var quotes = [
             {
                "quote": "This is just a Quote1. This is just a Quote1. This is just a Quote1. ",
                "source": "Christopher"
@@ -57,27 +56,29 @@
                 "quote": "This is just a Quote5",
                 "source": "Christopher Robin"
             },
-        ]
+            ]
 
-        const { createApp, ref, computed } = Vue;
-        createApp({
-            setup() {
-                const quotes = ref(quotesArray)
-                const isAuthor = ref('')
-                const sortedQuotes = ref([])
-
-                const filteredQuotes = computed ( () => {
-                    return quotes.value.filter(element => {
-                        return Boolean(isAuthor.value) == Boolean(element.source);
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                allQuotes: quotes,
+                isAuthor: "",
+                sortedQuotes: quotes,
+            },
+            computed: {
+                filteredQuotes: function () {
+                    return this.allQuotes.filter(element => {
+                        return Boolean(this.isAuthor) == Boolean(element.source);
                     })
-                })
-
-                sortBySource = () => {
-                    sortedQuotes.value = [...quotes.value].sort((a, b) => (a.source > b.source) ? 1 : -1);
                 }
-                return { quotes , isAuthor , sortedQuotes , filteredQuotes , sortBySource }
+            },
+            methods: {
+                sortBySource () {
+                    this.sortedQuotes = this.allQuotes.sort((a, b) => (a.source > b.source) ? 1 : -1);
+                }
             }
-        }).mount('#app')
+        })
+        
     </script>
 </body>
 </html>
