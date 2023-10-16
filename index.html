@@ -18,7 +18,11 @@
 </head>
 <body>
     <div id="app">
-        <div v-for="qt in allQuotes" v-if="qt.source">
+
+        <input type="radio" name="author" v-model="isAuthor" value="exist">Є автор
+        <input type="radio" name="author" v-model="isAuthor" value="">Немає автора
+
+        <div v-for="qt in filteredQuotes">
             <h3 v-bind:class="qt.quote.length > 40 ? 'red' : 'black'">{{qt.quote}},</h3>
             <h5>{{qt.source}}</h5>
         </div>
@@ -41,12 +45,24 @@
                "quote": "This is just a Quote4",
                "source": ""
             },
+            {
+                "quote": "This is just a Quote5",
+                "source": ""
+            },
             ]
 
         var vm = new Vue({
             el: "#app",
             data: {
                 allQuotes: quotes,
+                isAuthor: "",
+            },
+            computed: {
+                filteredQuotes: function () {
+                    return this.allQuotes.filter(element => {
+                        return Boolean(this.isAuthor) == Boolean(element.source);
+                    })
+                }
             }
         })
         
