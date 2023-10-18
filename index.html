@@ -30,6 +30,7 @@
     <div id="app">
         <h2>Пошук</h2>
         <input type="text" v-model="searchName">
+        <div>Кількість студентів: {{studentCount}}</div>
         <table>
             <thead>
                 <th>ПІБ</th>
@@ -45,6 +46,17 @@
                 <td><button @click="delStudent(st.id)">Вилалити</button></td>
             </tr>
         </table>
+        <div>
+            <label> ПІБ: </label><input type="text" v-model="studentForm.name">
+            <label> Група: </label>
+            <select v-model="studentForm.group">
+                <option>РПЗ 25 1/9</option>
+                <option>РПЗ 25 2/9</option>
+            </select>
+            <label> Рік народження: </label><input type="text" v-model="studentForm.birth">
+            <label> Здав ПР: </label><input type="checkbox" v-model="studentForm.passed">
+            <button @click="addStudent()">Додати</button>
+        </div>
     </div>
     <script>
         var studentsArray = [
@@ -70,20 +82,33 @@
                 "passed": true,
             },
         ]
+        var newStudentArray = {
+            name: "",
+            group: "",
+            birth: 0,
+            passed: false,
+        }
 
-        const { createApp, ref } = Vue;
+        const { createApp, ref, computed } = Vue;
         createApp({
             setup() {
                 const students = ref(studentsArray);
                 const searchValue = ref("");
                 const searchName = ref("");
+                const studentForm = ref(newStudentArray);
+                const studentCount = computed(() => {
+                    return students.value.length;
+                });
 
                 delStudent = (id) => {
                     students.value = students.value.filter( element => {
                         return element.id != id;
                     })
                 }
-                return { students, searchValue, searchName, delStudent }
+                addStudent = () => {
+                    studentCount = students.value.push({ "id": students.value[students.value.length - 1].id + 1, "name": studentForm.value.name, "group": studentForm.value.group, "birth": studentForm.value.birth, "passed": studentForm.value.passed });
+                }
+                return { students, searchValue, searchName, studentForm, delStudent, addStudent }
             }
         }).mount('#app')
     </script>
