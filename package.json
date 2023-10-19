@@ -1,9 +1,10 @@
 {
   "name": "practice",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode development",
+    "start": "webpack serve --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,14 @@
   },
   "homepage": "https://github.com/TheRainbowHorse/Practice#readme",
   "dependencies": {
-    "node.js": "^0.0.1-security"
-  }
+    "axios": "^1.5.1",
+    "node.js": "^0.0.1-security",
+    "vue": "^3.3.4",
+    "webpack": "^5.89.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "description": ""
 }
