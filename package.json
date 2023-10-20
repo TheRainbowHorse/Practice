@@ -21,6 +21,7 @@
     "axios": "^1.5.1",
     "node.js": "^0.0.1-security",
     "vue": "^3.3.4",
+    "vue-loader": "^17.3.0",
     "webpack": "^5.89.0"
   },
   "devDependencies": {

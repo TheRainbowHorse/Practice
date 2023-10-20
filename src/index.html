@@ -26,56 +26,12 @@
             background-color: lightgray;
         }
     </style>
-
-    <!-- <script src="https://unpkg.com/vue"></script> -->
     
+    <script src="main.js" defer></script>
 </head>
 <body>
     <div id="app">
-        <h2>Пошук</h2>
-        <input type="text" v-model="searchName">
-        <div>Кількість студентів: {{studentNumber}}</div>
-        <table>
-            <thead>
-                <th>ПІБ</th>
-                <th>Група</th>
-                <th>Оцінка</th>
-                <th>Здав ПР</th>
-            </thead>
-            <tr v-for="st in students" :class="st.name.toLowerCase().includes(searchName.toLowerCase()) && searchName != '' ? 'red' : ''">
-                <td>{{st.name}}</td>
-                <td>{{st.group}}</td>
-                <td>{{st.mark}}</td>
-                <td><input type="checkbox" v-model="st.isDonePr"></td>
-                <td><button @click="delStudent(st._id)">Вилалити</button></td>
-            </tr>
-        </table>
-        <div>
-            <label> ПІБ: </label><input type="text" v-model="studentForm.name">
-            <label> Група: </label>
-            <select v-model="studentForm.group">
-                <option>РПЗ 20 1/9</option>
-                <option>РПЗ 20 2/9</option>
-            </select>
-            <label> Оцінка: </label><input type="text" v-model="studentForm.mark">
-            <label> Здав ПР: </label><input type="checkbox" v-model="studentForm.isDonePr">
-            <button @click="addStudent()">Додати</button>
-        </div>
-        <div class="gray">
-            <h3>Currency Converter</h3>
-
-            <label>Enter Amount:</label><input type="number" v-model="convertForm.amount"><br>
-            <label>Convert From:</label>
-            <select v-model="convertForm.from">
-                <option v-for="curCode in currencyCodes" :value="curCode.code">{{curCode.name}}</option>
-            </select>
-            <label>Convert To:</label>
-            <select v-model="convertForm.to">
-                <option v-for="curCode in currencyCodes" :value="curCode.code">{{curCode.name}}</option>
-            </select>
-            <div>{{convertForm.amount}} {{convertForm.from}} equals {{convertedAmount}} {{convertForm.to}}</div>
-        </div>
+        
     </div>
-    <script src="main.js"></script>
 </body>
 </html>
