@@ -51,6 +51,7 @@
 <script>
 import axios from 'axios';
 import { ref, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 export default{
     setup() {
@@ -64,8 +65,9 @@ export default{
             mark: 0,
             isDonePr: false,
         });
+        const store = useStore();
         const studentNumber = computed(() => {
-            return students.value.length;
+            return store.getters.getCount;
         });
 
         const currency = ref([
@@ -103,6 +105,7 @@ export default{
                 students.value = students.value.filter(element => {
                     return element._id != id;
                 })
+                store.commit('setCount', students.value.length);
             })
         };
         function addStudent () {
@@ -115,6 +118,7 @@ export default{
             .then(data => {
                 console.log(data);
                 students.value.push(data.data);
+                store.commit('setCount', students.value.length);
             })
         };
         function setStudentToUpdate (id) {
@@ -137,6 +141,7 @@ export default{
             axios.get('http://34.82.81.113:3000/students').then((response) => {
                 console.log(response.data);
                 students.value = response.data;
+                store.commit('setCount', students.value.length);
             })
             // axios.get('https://api.monobank.ua/bank/currency').then((response) => {
             //     console.log(response.data);

@@ -1,4 +1,7 @@
 <template>
+<p>
+    Кількість студентів: {{studentsNumber}}
+</p>
 <table>
     <tr>
         <td><img :src="student.photo" @click="isOpen = true"></td>
@@ -16,28 +19,31 @@
 </Modal>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
+<script setup>
+import { ref, onMounted, defineComponent, computed } from 'vue';
 import axios from 'axios';
 import Modal from './Modal.vue';
+import { useStore } from 'vuex'
 
-export default {
-    components: { Modal },
-    props: {
-        id: ''
-    },
-    setup(props) {
-        const student = ref({});
-        const isOpen = ref(false);
+const store = useStore();
+const studentsNumber = computed(() => {
+    return store.getters.getCount;
+});
 
-        onMounted(() => {
-            axios.get('http://34.82.81.113:3000/students/'+props.id).then((response) => {
-                console.log(response.data)
-                student.value = response.data;
-            })
-        });
+const student = ref({});
+const components = defineComponent({
+    Modal
+})
+const props = defineProps({
+    id: ''
+})
 
-        return { student, isOpen };
-    },
-}
+const isOpen = ref(false);
+
+onMounted(() => {
+    axios.get('http://34.82.81.113:3000/students/'+props.id).then((response) => {
+        console.log(response.data)
+        student.value = response.data;
+    })
+});
 </script>
